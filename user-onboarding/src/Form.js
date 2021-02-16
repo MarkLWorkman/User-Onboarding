@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 import axios from 'axios';
 
 const Form = () => {
@@ -84,4 +84,58 @@ const Form = () => {
             console.log(error.response)
         })
     }
+
+    return (
+        <form onSubmit={formSubmit}>
+            <label htmlFor='name'>
+                Name
+            <input
+                id='name'
+                type='text'
+                name='name'
+                value={formState.name}
+                onChange={changeHandler}
+            />
+            {errors.name.length > 0 ? (<p className ='error'>{errors.name}</p>) : null}
+            </label>
+            <label htmlFor='email'>
+                Email
+            <input
+                id='email'
+                type='text'
+                name='email'
+                value={formState.email}
+                onChange={changeHandler}
+            />
+            {errors.email.length > 0 ? (<p className='error'>{errors.email}</p>) : null}
+            </label>
+            <label htmlFor='password'>
+                Password
+            <input
+                id='password'
+                type='password'
+                name='password'
+                value={formState.password}
+                onChange={changeHandler}
+            />
+            {errors.password.length > 0 ? (<p className='error'>{errors.password}</p>) : null}
+            </label>
+            <label htmlFor='terms' className='terms'>
+            <input
+                id='terms'
+                type='checkbox'
+                name='terms'
+                value={formState.terms}
+                onChange={changeHandler}
+            />
+            Accept Terms and Conditions?
+            {errors.terms.length > 0 ? (<p className='error'>{errors.terms}</p>) : null}
+            </label>
+            <button type='submit' disabled={buttonDisabled}>Submit</button>
+
+            <pre>{JSON.stringify(users, null, 1)}</pre>
+            </form>
+    )
 }
+
+export default Form;
