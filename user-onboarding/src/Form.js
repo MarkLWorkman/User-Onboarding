@@ -53,4 +53,17 @@ const Form = () => {
             })
         })
     }
+
+    const changeHandler = event => {
+        event.persist()
+
+        const FormData = {
+            ...formState,
+            [event.target.name] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
+        }
+
+        validateChange(event)
+
+        setFormState(FormData)
+    }
 }
