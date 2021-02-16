@@ -26,4 +26,31 @@ const Form = () => {
         password: yup.string().required('Please enter a valid password'),
         terms: yup.boolean().oneOf([true])
     })
+
+    const completeForm = () => {
+        formSchema.isValid(formState)
+        .then(isValid => {
+            setButtonDisabled(!isValid)
+        })
+    }
+
+    useEffect(completeForm, [formState])
+
+    const validateChange = event => {
+        yup
+        .reach(formSchema, event.target.name)
+        .validate(event.target.value)
+        .then(valid => {
+            setErrors({
+                ...errors,
+                [event.target.name] : ''
+            })
+        })
+        .catch(error => {
+            setErrors({
+                ...errors,
+                [event.target.name] : error.errors[0]
+            })
+        })
+    }
 }
