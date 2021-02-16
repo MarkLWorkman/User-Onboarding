@@ -66,4 +66,22 @@ const Form = () => {
 
         setFormState(FormData)
     }
+
+    const formSubmit = event => {
+        event.preventDefault()
+        axios
+        .post('https://reqres.in/api/users', formState)
+        .then(response => {
+            setUsers([...users, response.data])
+            setFormState({
+                name: '',
+                email: '',
+                password: '',
+                terms: true
+            })
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+    }
 }
